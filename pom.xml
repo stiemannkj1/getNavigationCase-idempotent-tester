@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.liferay.faces</groupId>
+    <artifactId>getNavigationCase-idempotent-tester</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>getNavigationCase-idempotent-tester</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+	<profiles>
+		<profile>
+			<id>mojarra</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<mojarra.version>2.2.14</mojarra.version>
+				<jsf.product>Mojarra ${mojarra.version}</jsf.product>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.glassfish</groupId>
+					<artifactId>javax.faces</artifactId>
+					<version>${mojarra.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>mojarra-2.3</id>
+			<properties>
+				<mojarra.version>2.3.2</mojarra.version>
+				<jsf.product>Mojarra ${mojarra.version}</jsf.product>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.glassfish</groupId>
+					<artifactId>javax.faces</artifactId>
+					<version>${mojarra.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>myfaces</id>
+			<properties>
+				<myfaces.version>2.2.10</myfaces.version>
+				<jsf.product>MyFaces ${myfaces.version}</jsf.product>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.myfaces.core</groupId>
+					<artifactId>myfaces-api</artifactId>
+					<version>${myfaces.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.myfaces.core</groupId>
+					<artifactId>myfaces-impl</artifactId>
+					<version>${myfaces.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<dependency>
+	        <groupId>org.jboss.weld.servlet</groupId>
+	        <artifactId>weld-servlet</artifactId>
+	        <version>2.3.3.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>1.2</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+					<webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/webapp</directory>
+							<includes>
+								<include>**/web.xml</include>
+							</includes>
+						</resource>
+					</webResources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
